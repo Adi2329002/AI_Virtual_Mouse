@@ -127,26 +127,71 @@ numpy==1.26.4
 
 ⚡ Performance
 
-Real-time FPS monitoring
+- Real-time FPS monitoring
 
-Smoothing algorithm for stable cursor control
+- Smoothing algorithm for stable cursor control
 
-Optimized single-hand detection
+- Optimized single-hand detection
 
 
 🧠 Computer Vision Concepts Used
 
-Landmark detection
+- Landmark detection
 
-Coordinate normalization
+- Coordinate normalization
 
-Euclidean distance calculation
+- Euclidean distance calculation
 
-Frame transformation
+- Frame transformation
 
-Real-time smoothing interpolation
+- Real-time smoothing interpolation
 
-Gesture thresholding
+- Gesture thresholding
 
-
+📊 FPS Calculation
 fps = 1 / (current_time - prev_time)
+Displayed in real-time on screen.
+
+🎓 Academic Value
+
+- This project demonstrates:
+
+- Applied Computer Vision
+
+- Human-Computer Interaction
+
+- Real-time System Design
+
+- Modular Software Architecture
+
+- Clean Code Practices
+
+- Performance Engineering
+
+🔮 Future Improvements
+
+- Scroll gesture
+
+- Zoom gesture
+
+- Multi-hand support
+
+- Customizable gesture sensitivity
+
+- GUI control panel
+
+- Cross-platform optimization
+
+- Machine-learning based gesture classifier
+
+
+👨‍💻 Author
+
+Aditya Alok
+B.Tech CSE
+Advanced Programming Lab Project
+
+
+⭐ If You Like This Project
+
+Give it a ⭐ on GitHub!
