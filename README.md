@@ -42,7 +42,7 @@ OS-Level Mouse Control
 ---
 
 ## 🏗️ Project Architecture
-
+```
 ai-virtual-mouse/
 │
 ├── src/
@@ -57,7 +57,7 @@ ai-virtual-mouse/
 ├── requirements.txt
 └── README.md
 
-
+```
 ---
 
 ## ✨ Features
