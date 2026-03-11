@@ -39,4 +39,4 @@ class MouseController:
             self.dragging = False
 
     def scroll(self, direction):
-        pyautogui.scroll(direction * 50)
+        pyautogui.scroll(direction * 30)

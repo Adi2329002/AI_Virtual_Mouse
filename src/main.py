@@ -1,11 +1,13 @@
 import cv2
 import time
+
 from src.core.hand_tracker import HandTracker
 from src.core.mouse_controller import MouseController
 from src.core.gesture_detector import GestureDetector
 
 
 def main():
+    # Initialize system components
     hand_tracker = HandTracker()
     mouse_controller = MouseController()
     gesture_detector = GestureDetector()
@@ -18,28 +20,42 @@ def main():
         if frame is None:
             break
 
+        # -------- FPS CALCULATION --------
         current_time = time.time()
         fps = 1 / (current_time - prev_time) if prev_time != 0 else 0
         prev_time = current_time
 
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
+
+                # Draw hand landmarks
                 hand_tracker.draw_landmarks(frame, hand_landmarks)
 
+                # -------- CURSOR MOVEMENT --------
                 index_tip = hand_landmarks.landmark[8]
                 mouse_controller.move(index_tip.x, index_tip.y)
 
+                # -------- LEFT CLICK (tap gesture) --------
                 if gesture_detector.detect_left_click(frame, hand_landmarks):
                     mouse_controller.left_click()
 
+                # -------- RIGHT CLICK --------
                 if gesture_detector.detect_right_click(frame, hand_landmarks):
                     mouse_controller.right_click()
 
+                # -------- DRAG --------
+                if gesture_detector.detect_drag(frame, hand_landmarks):
+                    mouse_controller.start_drag()
+                else:
+                    mouse_controller.stop_drag()
+
+                # -------- SCROLL --------
                 scroll_direction = gesture_detector.detect_scroll(hand_landmarks)
 
                 if scroll_direction != 0:
                     mouse_controller.scroll(scroll_direction)
 
+        # -------- DISPLAY FPS --------
         cv2.putText(
             frame,
             f"FPS: {int(fps)}",
@@ -50,8 +66,10 @@ def main():
             2
         )
 
+        # -------- SHOW CAMERA --------
         cv2.imshow("AI Virtual Mouse - Professional", frame)
 
+        # -------- EXIT KEY --------
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
