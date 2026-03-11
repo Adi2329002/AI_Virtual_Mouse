@@ -7,7 +7,7 @@ class GestureDetector:
     def __init__(self):
         self.last_click_time = 0
         self.last_right_click_time = 0
-        self.dragging = False
+        self.prev_scroll_y = None
 
     def _distance(self, frame, lm1, lm2):
         h, w, _ = frame.shape
@@ -41,12 +41,22 @@ class GestureDetector:
                 return True
         return False
 
-    def detect_drag(self, frame, hand_landmarks):
+    def detect_scroll(self, hand_landmarks):
         index_tip = hand_landmarks.landmark[8]
-        thumb_tip = hand_landmarks.landmark[4]
+        middle_tip = hand_landmarks.landmark[12]
 
-        distance = self._distance(frame, index_tip, thumb_tip)
+        avg_y = (index_tip.y + middle_tip.y) / 2
 
-        if distance < CLICK_THRESHOLD:
-            return True
-        return False
+        if self.prev_scroll_y is None:
+            self.prev_scroll_y = avg_y
+            return 0
+
+        delta = avg_y - self.prev_scroll_y
+        self.prev_scroll_y = avg_y
+
+        if delta > 0.01:
+            return -1  # scroll down
+        elif delta < -0.01:
+            return 1  # scroll up
+
+        return 0

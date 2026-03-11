@@ -37,3 +37,6 @@ class MouseController:
         if self.dragging:
             pyautogui.mouseUp()
             self.dragging = False
+
+    def scroll(self, direction):
+        pyautogui.scroll(direction * 50)

@@ -29,19 +29,16 @@ def main():
                 index_tip = hand_landmarks.landmark[8]
                 mouse_controller.move(index_tip.x, index_tip.y)
 
-                # Left click
                 if gesture_detector.detect_left_click(frame, hand_landmarks):
                     mouse_controller.left_click()
 
-                # Right click
                 if gesture_detector.detect_right_click(frame, hand_landmarks):
                     mouse_controller.right_click()
 
-                # Drag logic
-                if gesture_detector.detect_drag(frame, hand_landmarks):
-                    mouse_controller.start_drag()
-                else:
-                    mouse_controller.stop_drag()
+                scroll_direction = gesture_detector.detect_scroll(hand_landmarks)
+
+                if scroll_direction != 0:
+                    mouse_controller.scroll(scroll_direction)
 
         cv2.putText(
             frame,
